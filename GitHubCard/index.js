@@ -2,6 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/Sonica1031')
+ .then(function(response){
+console.log(response);
+cards.appendChild(cardCreator(response));
+ })
+ .catch(function(err){
+   console.log(err);
+ });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -13,7 +21,7 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-
+let cards = document.querySelector(".cards");
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -45,6 +53,46 @@ const followersArray = [];
 </div>
 
 */
+
+function cardCreator (component){
+let card = document.createElement('div');
+let img = document.createElement('img');
+let cardInfo = document.createElement('div');
+let name = document.createElement('h3');
+let username = document.createElement('p');
+let location = document.createElement('p');
+let profile = document.createElement('p');
+let link = document.createElement('a');
+let followers = document.createElement('p');
+let following = document.createElement('p');
+let bio = document.createElement('p');
+
+card.appendChild(img);
+card.appendChild(cardInfo);
+cardInfo.appendChild(name);
+cardInfo.appendChild(username);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+profile.appendChild(link);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+username.classList.add('username');
+
+img.src = component.data.avatar_url;
+name.textContent = "Stephanie Otzoy";
+username.textContent = component.data.login;
+location.textContent = "Location:" + component.data.location;
+link.href = component.data.url;
+link.textContent = component.data.url;
+profile.textContent = "Profile:" + link;
+
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
